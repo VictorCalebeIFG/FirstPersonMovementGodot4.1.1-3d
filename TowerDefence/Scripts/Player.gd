@@ -23,16 +23,16 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	var input_dir := Input.get_vector("a", "d", "w", "s")
-	var direction = (head.transform.basis.x * input_dir.x) + (head.transform.basis.z * input_dir.y)
+	var direction = ((head.transform.basis.x * input_dir.x) + (head.transform.basis.z * input_dir.y))
 	
+	var n_direcrtion := Vector2(direction.x,direction.z).normalized()
 	
 	if direction:#direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		velocity.x = n_direcrtion.x * SPEED
+		velocity.z = n_direcrtion.y * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
 	move_and_slide()
 
 func _input(event: InputEvent) -> void:
